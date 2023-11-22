@@ -1,0 +1,169 @@
+The code provided consists of the set of the executable programs.
+
+Description of the code
+-----------------------
+
+calcdate.sh - shell script (usable in Linux/UNIX) to run the individual
+  parts of the code by the single command
+
+moid.exes
+- INPUT = allshowers.d (this file is provided with the other code)
+          the individual columns of this file contain:
+    * sequential serial number of the solution in the whole list;
+        value:integer
+    * IAU No. of shower; value:integer
+    * number of the solution of given shower; value:integer
+    * mean solar longitude (of solution) [deg]; value:real
+    * right ascension of mean geocentric radiant [deg]; value:real
+    * declination of mean geocentric radiant [deg]; value:real
+    * mean geocentric velocity [km/s]; value:real
+    * mean semi-major axis, "a" [au] (value -1.000 indicates that this
+        orbital element is missing); value:real
+    * mean perihelion distance, "q" [au] (value -1.000 indicates that
+        this orbital element is missing and it is calculated as
+        q=a*(1 - e)); value:real
+    * mean eccentricity, "e" [1] (value -1.000 indicates that
+        this orbital element is missing and it is calculated as
+        e=1 - q/a); value:real
+    * mean argument of perihelion [deg]; value:real
+    * mean longitude of ascending node [deg]; value:real
+    * mean inclination [deg]; value:real
+    * number of meteors in the solution; value:integer 
+
+        = object dat;
+          the following input data should be given in this file:
+    * name of the object; value:string (15 characters in maximum)
+    * semi-major axis (of its orbit) [au]; value:real
+    * eccentricity [1]; value:real
+    * argument of perihelion [deg]; value:real
+    * longinute of ascending node [deg]; value:real
+    * inclination [deg]; value:real
+    * year of epoch the orbit is referred to; value:integer
+    * month of the epoch; value:integer
+    * day of the epoch; value:real
+    * mean anomaly at the moment of epoch [deg]; value:real
+    * year for which the passages should be calculated, period 1 to
+      4000 are allowed; value:integer
+    * critical MOID between the orbit of the object and mean orbit of
+      stream; value:real
+- OUTPUT = moid.dw; the individual columns contain:
+  1st line:
+    * name of object (15-character string in maximum),
+    * true anomalies of object in the moment of its approach to the
+      post perihelion and preperihelion arcs of stream orbit [deg],
+    * MOID for the postperihelion and preperihelion arcs of the stream
+      orbit [au];
+  2nd line:
+    * IAU number of the stream the object approached to,
+    * solution number of this stream,
+    * number of meteors detected in the corresponding solution of meteor
+      shower,
+    * true anomalies of the points in the postperihelion and
+      preperihelion arcs of stream's mean orbit, which are nearest to
+      the object's orbit [deg];
+  3rd line:
+    mean orbital elements of the stream the object approached
+    to; i.e.:
+    * perihelion distance [au],
+    * eccentricity [1],
+    * argument of perihelion [deg],
+    * longitude of ascending node [deg],
+    * inclination to the ecliptic [deg].
+
+relvel.exes
+- INPUT = object.dat, moid.dw
+- OUTPUT = relativeV.dw; the individual columns contain:
+  1st line:
+    * name of object (15-character string),
+    * true anomaly of the object in the moment of the closest approach
+      [deg],
+    * MOID [au],
+    * relative velocity between the object and meteoroid moving in the
+      mean orbit of stream in the moment of the closest approach [km/s],
+    * angle between the velocity vectors of object and meteoroid in the
+      mean orbit in the moment of the closest approach [deg],
+  2nd line:
+    * IAU number and solution number of the stream the object approached
+      to,
+    * number of detected meteors in the corresponding solution of meteor
+      shower,
+    * indicator of the arc of stream orbit to which the object
+      approached (value 1 indicates the postperihelion and value -1 the
+      preperihelion arc).
+
+basicdate.exes
+- INPUT = allshowers.d, object.dat, relativeV.dw
+- OUTPUT = basicdate.dw; the individual columns of the file contain
+  further characteristics of the closest approach of the object to the
+  postperihelion and/or preperihelion arc of the mean orbit of a stream,
+  specifically:
+  * name of the object (15 character string in maximum),
+  * IAU number and
+  * solution number of stream the object approached to,
+  * the number of detected meteors in the corresponding solution of meteor
+    shower,
+  * the true anomaly of the object in the moment of the closest approach
+    [deg],
+  * time of the closest approach [Julian date],
+  * orbital period of the object [day],
+  * indicator of the arc the object approached to (value 1 indicates the
+    postperihelion and value -1 the preperihelion arc),
+  * MOID [au],
+  mean orbital elements of the stream in order:
+  * perihelion distance [au],
+  * eccentricity [1],
+  * argument of perihelion [deg],
+  * longitude of ascending node [deg],
+  * inclination [deg],
+  * relative velocity between the object and meteoroid moving in the
+      stream's mean orbit in the moment of the closest approach [km/s],
+  * angle between the velocity vectors of the object and meteoroid in
+      the mean orbit in the moment of the closest approach [deg].
+
+datelist.exes
+- INPUT = basicdate.dw, object.dat 
+- OUTPUT = unarranged????.d; question marks in this name stand for the
+  year of the investigation; the individual columns contain:
+  * IAU No. of corresponding shower,
+  * solution number,
+  * number of meteors in the solution (value -1 indicates that this
+    number is unknown),
+  * arc (postperihelion or preperihelion) of stream's orbit the object
+    passes through,
+  * MOID [au],
+  * heliocentric distance of the object [au],
+  * relative velocity of the object and meteoroid moving in the mean
+    orbit of stream [km/s],
+  * angle between the velocity vectors of these two bodies [deg],
+  * date of the closest approach [year month day].
+  (The values of the heliocentric distance, relative velocity, and angle
+  between the velocity vectors are given for the moment of the closest
+  approach of the object to the mean orbit of stream solution.)
+
+arrange.exes
+- INPUT = object.dat, unarranged????.d
+- OUTPUT = datelist????.dat; question marks in this name stand for the
+  year of the investigation; the individual columns (the same as in file
+  ``unarranged????.dat'') contain:
+  * IAU No. of corresponding shower,
+  * solution number,
+  * number of meteors in the solution (value -1 indicates that this
+    number is unknown),
+  * arc (postperihelion or preperihelion) of stream's orbit the object
+    passes through,,
+  * MOID [au],
+  * heliocentric distance of the object [au],
+  * relative velocity of the object and meteoroid moving in the mean
+    orbit of stream [km/s],
+  * angle between the velocity vectors of these two bodies [deg],
+  * date of the closest approach [year month day].
+  (The values of the heliocentric distance, relative velocity, and angle
+  between the velocity vectors are given for the moment of the closest
+  approach of the object to the mean orbit of stream solution.)
+
+--------------------------------------------
+
+   The code was created in Fortran 77 program language. The individual
+programs of the set have suffix "*.f". The executable programs were
+compiled as the static-binary files and have suffix "*.exes". Their
+running should be possible onto any computer with the 64-bit processor.

@@ -1,0 +1,24 @@
+NAME:
+06478 Gault
+semi-major axis [au]; value:real
+ 2.3058915
+eccentricity [1]; value:real
+ 0.1931162
+argument of perihelion [deg]; value:real
+  83.16204
+longinute of ascending node [deg]; value:real
+ 183.52794
+inclination [deg]; value:real
+  22.81264
+year of epoch; value:integer
+ 2022
+month of epoch; value:integer
+  8
+day of epoch; value:real
+  9.0
+mean anomaly at the moment of epoch [deg]; value:real
+ 267.37101
+year for which the passages should be calculated; value:integer
+ 2013
+critical MOID between the orbit of object and mean orbit of stream; value:real
+ 0.10
