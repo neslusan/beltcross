@@ -69,6 +69,18 @@ moid.exes
     * argument of perihelion [deg],
     * longitude of ascending node [deg],
     * inclination to the ecliptic [deg].
+  4th line:
+    * the rectangular heliocentric ecliptical coordinates of asteroid,
+      X_a, Y_a, Z_a, and rectangular heliocentric ecliptical
+      coordinates of stream meteoroid moving in the mean orbit of
+      stream, X_s, Y_s, Z_s, in the moment of their closest approach on
+      the post-perihelion arc of meteoroid orbit [au],
+  5th line:
+    * the rectangular heliocentric ecliptical coordinates of asteroid,
+      X_a, Y_a, Z_a, and rectangular heliocentric ecliptical
+      coordinates of stream meteoroid moving in the mean orbit of
+      stream, X_s, Y_s, Z_s, in the moment of their closest approach on
+      the pre-perihelion arc of meteoroid orbit [au],
 
 relvel.exes
 - INPUT = object.dat, moid.dw
@@ -90,76 +102,127 @@ relvel.exes
     * indicator of the arc of stream orbit to which the object
       approached (value 1 indicates the postperihelion and value -1 the
       preperihelion arc).
+  3rd line:
+    * the rectangular heliocentric ecliptical coordinates of asteroid,
+      X_a, Y_a, Z_a, and rectangular heliocentric ecliptical
+      coordinates of stream meteoroid moving in the mean orbit of
+      stream, X_s, Y_s, Z_s, in the moment of their closest approach on
+      the arc of meteoroid orbit specified in the 2nd line [au],
+  4th line:
+    * the rectangular components of the heliocentric ecliptical velocity
+      vector, VA_x, VA_y, VA_z, of asteroid and components of analogous
+      vector, VS_x, VS_y, VS_z, of stream meteoroid moving in the mean
+      orbit of stream in the moment of the closest approach of both
+      objects on the arc of meteoroid orbit specified in the 2nd line
+      [au/day]
 
 basicdate.exes
 - INPUT = allshowers.d, object.dat, relativeV.dw
-- OUTPUT = basicdate.dw; the individual columns of the file contain
-  further characteristics of the closest approach of the object to the
-  postperihelion and/or preperihelion arc of the mean orbit of a stream,
-  specifically:
-  * name of the object (15 character string in maximum),
-  * IAU number and
-  * solution number of stream the object approached to,
-  * the number of detected meteors in the corresponding solution of meteor
-    shower,
-  * the true anomaly of the object in the moment of the closest approach
-    [deg],
-  * time of the closest approach [Julian date],
-  * orbital period of the object [day],
-  * indicator of the arc the object approached to (value 1 indicates the
-    postperihelion and value -1 the preperihelion arc),
-  * MOID [au],
-  mean orbital elements of the stream in order:
-  * perihelion distance [au],
-  * eccentricity [1],
-  * argument of perihelion [deg],
-  * longitude of ascending node [deg],
-  * inclination [deg],
-  * relative velocity between the object and meteoroid moving in the
+- OUTPUT = basicdate.dw; the individual columns contain:
+  1st line:
+    further characteristics of the closest approach of the object to
+    the postperihelion and/or preperihelion arc of the mean orbit of
+    a stream, specifically:
+    * name of the object (15 character string in maximum),
+    * IAU number and
+    * solution number of stream the object approached to,
+    * the number of detected meteors in the corresponding solution of
+      meteor shower,
+    * the true anomaly of the object in the moment of the closest
+      approach [deg],
+    * time of the closest approach [Julian date],
+    * orbital period of the object [day],
+    * indicator of the arc the object approached to (value 1 indicates
+      the postperihelion and value -1 the preperihelion arc),
+    * MOID [au],
+    mean orbital elements of the stream in order:
+    * perihelion distance [au],
+    * eccentricity [1],
+    * argument of perihelion [deg],
+    * longitude of ascending node [deg],
+    * inclination [deg],
+    * relative velocity between the object and meteoroid moving in the
       stream's mean orbit in the moment of the closest approach [km/s],
-  * angle between the velocity vectors of the object and meteoroid in
-      the mean orbit in the moment of the closest approach [deg].
+    * angle between the velocity vectors of the object and meteoroid in
+      the mean orbit in the moment of the closest approach [deg];
+  2nd line:
+    * columns 1-3: the rectangular heliocentric ecliptical coordinates
+      of asteroid, X_a, Y_a, Z_a, in the moment of their closest
+      approach, T_a, on the arc of meteoroid orbit specified in the 1st
+      line [au]
+    * columns 4-6: the rectangular components of the heliocentric
+      ecliptical velocity vector, VA_x, VA_y, VA_z, of asteroid [km/s]
+    * columns 7-9: components of analogous vector, VS_x, VS_y, VS_z, of
+      stream meteoroid moving in the mean orbit of stream in the moment
+      T_a on the arc of meteoroid orbit specified in the 1st line [km/s]
 
 datelist.exes
 - INPUT = basicdate.dw, object.dat 
-- OUTPUT = unarranged????.d; question marks in this name stand for the
-  year of the investigation; the individual columns contain:
-  * IAU No. of corresponding shower,
-  * solution number,
-  * number of meteors in the solution (value -1 indicates that this
-    number is unknown),
-  * arc (postperihelion or preperihelion) of stream's orbit the object
-    passes through,
-  * MOID [au],
-  * heliocentric distance of the object [au],
-  * relative velocity of the object and meteoroid moving in the mean
-    orbit of stream [km/s],
-  * angle between the velocity vectors of these two bodies [deg],
-  * date of the closest approach [year month day].
-  (The values of the heliocentric distance, relative velocity, and angle
-  between the velocity vectors are given for the moment of the closest
-  approach of the object to the mean orbit of stream solution.)
-
+- OUTPUT = unarranged????.d and unarr_vect????.d; question marks in
+           these names stand for the year of the investigation;
+  (1) unarranged????.d - the individual columns contain:
+      * IAU No. of corresponding shower,
+      * solution number,
+      * number of meteors in the solution (value -1 indicates that this
+        number is unknown),
+      * arc (postperihelion or preperihelion) of stream's orbit the
+        object passes through,
+      * MOID [au],
+      * heliocentric distance of the object [au],
+      * relative velocity of the object and meteoroid moving in the mean
+        orbit of stream [km/s],
+      * angle between the velocity vectors of these two bodies [deg],
+      * date of the closest approach [year month day].
+      (The values of the heliocentric distance, relative velocity, and
+      angle between the velocity vectors are given for the moment of
+      the closest approach of the object to the mean orbit of stream
+      solution.)
+  (2) unarr_vect????.d - the individual columns contain:
+      * columns 1-3: the rectangular heliocentric ecliptical coordinates
+        of asteroid, X_a, Y_a, Z_a, in the moment of their closest
+        approach, T_a, on the arc of meteoroid orbit specified in the
+        1st line [au],
+      * columns 4-6: the rectangular components of the heliocentric
+        ecliptical velocity vector, VA_x, VA_y, VA_z, of asteroid [km/s]
+      * columns 7-9: components of analogous vector, VS_x, VS_y, VS_z,
+        of stream meteoroid moving in the mean orbit of stream in the
+        moment T_a on the arc of meteoroid orbit specified in the 1st
+        line [km/s]
+  
 arrange.exes
-- INPUT = object.dat, unarranged????.d
-- OUTPUT = datelist????.dat; question marks in this name stand for the
-  year of the investigation; the individual columns (the same as in file
-  ``unarranged????.dat'') contain:
-  * IAU No. of corresponding shower,
-  * solution number,
-  * number of meteors in the solution (value -1 indicates that this
-    number is unknown),
-  * arc (postperihelion or preperihelion) of stream's orbit the object
-    passes through,,
-  * MOID [au],
-  * heliocentric distance of the object [au],
-  * relative velocity of the object and meteoroid moving in the mean
-    orbit of stream [km/s],
-  * angle between the velocity vectors of these two bodies [deg],
-  * date of the closest approach [year month day].
-  (The values of the heliocentric distance, relative velocity, and angle
-  between the velocity vectors are given for the moment of the closest
-  approach of the object to the mean orbit of stream solution.)
+- INPUT = object.dat, unarranged????.d, unarr_vect????.d
+- OUTPUT = datelist????.dat, vectors????.dat; question marks in these
+           names stand for the year of the investigation;
+  (1) datelist????.d - the individual columns (the same as in file
+                       ``unarranged????.dat'') contain:
+      * IAU No. of corresponding shower,
+      * solution number,
+      * number of meteors in the solution (value -1 indicates that this
+        number is unknown),
+      * arc (postperihelion or preperihelion) of stream's orbit the
+        object passes through,,
+      * MOID [au],
+      * heliocentric distance of the object [au],
+      * relative velocity of the object and meteoroid moving in the mean
+        orbit of stream [km/s],
+      * angle between the velocity vectors of these two bodies [deg],
+      * date of the closest approach [year month day].
+        (The values of the heliocentric distance, relative velocity, and
+        angle between the velocity vectors are given for the moment of
+        the closest approach of the object to the mean orbit of stream
+        solution.)
+  (2) vectors????.d - the individual columns (the same as in the file
+      ``unarr_vect????.d'') contain:
+      * columns 1-3: the rectangular heliocentric ecliptical coordinates
+        of asteroid, X_a, Y_a, Z_a, in the moment of their closest
+        approach, T_a, on the arc of meteoroid orbit specified in the
+        1st line [au],
+      * columns 4-6: the rectangular components of the heliocentric
+        ecliptical velocity vector, VA_x, VA_y, VA_z, of asteroid [km/s]
+      * columns 7-9: components of analogous vector, VS_x, VS_y, VS_z,
+        of stream meteoroid moving in the mean orbit of stream in the
+        moment T_a on the arc of meteoroid orbit specified in the 1st
+        line [km/s]
 
 --------------------------------------------
 
